@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome | MedInfo Bot</title>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Animated Background */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top, #a6d5ff 10%, #4c89df 60%, #003d88 100%);
+            overflow: hidden;
+        }
+
+        /* Floating Bubbles */
+        .bubble {
+            position: absolute;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            animation: floatUp 10s infinite ease-in-out;
+        }
+        @keyframes floatUp {
+            from { transform: translateY(100vh); opacity: 0; }
+            to { transform: translateY(-100vh); opacity: 1; }
+        }
+
+        /* Place random bubbles */
+        .bubble:nth-child(1) { width: 120px; height: 120px; left: 10%; animation-duration: 12s; }
+        .bubble:nth-child(2) { width: 80px; height: 80px; left: 50%; animation-duration: 9s; }
+        .bubble:nth-child(3) { width: 150px; height: 150px; left: 80%; animation-duration: 14s; }
+        .bubble:nth-child(4) { width: 60px; height: 60px; left: 30%; animation-duration: 8s; }
+        .bubble:nth-child(5) { width: 200px; height: 200px; left: 65%; animation-duration: 15s; }
+
+        /* Center Card (Glass Effect) */
+        .container {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+            padding: 45px;
+            border-radius: 20px;
+            width: 390px;
+            text-align: center;
+            color: white;
+            animation: fadeIn 1.5s ease-in-out, float 4s infinite ease-in-out alternate;
+            box-shadow: 0px 0px 25px rgba(255,255,255,0.25);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-12px); }
+        }
+
+        /* Title */
+        h1 {
+            font-size: 29px;
+            font-weight: 600;
+        }
+
+        /* Heartbeat Animation */
+        .pulse {
+            font-size: 52px;
+            margin-bottom: 10px;
+            animation: heartbeat 1.4s infinite;
+            filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.6));
+        }
+
+        @keyframes heartbeat {
+            0%, 50%, 100% { transform: scale(1); }
+            25%, 75% { transform: scale(1.25); }
+        }
+
+        /* Subtitle */
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        /* Button */
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #ffffff, #e9f3ff);
+            color: #2c5db1;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        button:hover {
+            transform: scale(1.09);
+            background: white;
+            box-shadow: 0px 0px 20px rgba(255,255,255,0.95);
+        }
+
+        /* Developer Credit */
+        .credit {
+            margin-top: 18px;
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* Fade Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- Floating Bubbles -->
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+
+<div class="container">
+    <div class="pulse">❤️‍🩹</div>
+    <h1>Welcome to MedInfo Bot</h1>
+    <p>Your AI-powered medical knowledge assistant</p>
+
+    <button onclick="window.location.href='/chatp'">Start Chat 💬</button>
+
+    <div class="credit">Developed by <strong>Mayank</strong> 👨‍💻</div>
+</div>
+
+</body>
+</html>

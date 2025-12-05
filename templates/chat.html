@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medinfo Bot 🤖</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="topbar">
+    <img src="https://cdn-icons-png.flaticon.com/512/3870/3870822.png" class="avatar">
+    <span>MedInfo Bot 🤖</span>
+</div>
+
+<div class="chat-container">
+    <div id="chatDisplay"></div>
+</div>
+
+<div class="input-area">
+    <input id="inputBox" type="text" placeholder="Type a message...">
+    <button id="voiceBtn">🎙️</button>
+    <button id="sendBtn">➤</button>
+</div>
+
+<script>
+let chat = document.getElementById("chatDisplay");
+let input = document.getElementById("inputBox");
+let send = document.getElementById("sendBtn");
+let voice = document.getElementById("voiceBtn");
+
+function show(type, text){
+    let msgBox = document.createElement("div");
+    msgBox.className = type === "user" ? "msg user" : "msg bot";
+
+    msgBox.innerHTML = `<span>${text}</span><small>${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</small>`;
+
+    chat.appendChild(msgBox);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+async function sendMsg(text){
+    show("user", text);
+    show("bot", "Typing...");
+
+    let res = await fetch("/get_response", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({question:text})
+    });
+
+    let data = await res.json();
+    chat.lastChild.querySelector("span").innerText = data.reply;
+}
+
+send.addEventListener("click", ()=>{
+    if(input.value.trim()) sendMsg(input.value);
+    input.value="";
+});
+
+input.addEventListener("keypress", e=>{
+    if(e.key==="Enter") send.click();
+});
+
+let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let mic=new SR();
+
+voice.addEventListener("click", ()=>{
+    voice.innerText="🎧";
+    mic.start();
+});
+
+mic.onresult = e=>{
+    sendMsg(e.results[0][0].transcript);
+    voice.innerText="🎙️";
+};
+mic.onend = ()=> voice.innerText="🎙️";
+</script>
+
+</body>
+</html>
