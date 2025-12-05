@@ -17,10 +17,15 @@ def chat():
     question = data.get('question')
 
     prompt =f"""
-    you are MedInfo Chatbot, who will give the exact information about the user question regarding any disease awareness 
-    in about 2-3 line whenever user ask question. you just give first information about that disease and then symptoms 
-    at last precautions 
-    {question}
+    you are MedInfo Chatbot, will give the accurate and precise information about any disease and basically designed to
+    aware user about the disease. You will give the precise and 100% accurate information about disease by fetch only from 
+    the WHO dataset and real trusted sources. 
+    you response should be brief and clear in about 3 to 4 lines or few more if needed much
+    1.Disease
+    2.Precaution
+    3.Symptoms
+    your main task is to aware
+    User Question:{question}
     """
 
     response = client.models.generate_content(
