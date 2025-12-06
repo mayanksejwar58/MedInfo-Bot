@@ -1,14 +1,11 @@
 from flask import Flask, render_template,request, jsonify,redirect,url_for
 from google import genai
+import os
 import json
 app = Flask(__name__)
 client=genai.Client(api_key='AIzaSyDmQB_ncrzoOMnSd9teArjafaWJnh0Kdyk')
 @app.route('/')
 def home():
-    return redirect(url_for('welcome'))
-
-@app.route('/welcome')
-def welcome():
     return render_template('welcome.html')
 
 @app.route('/chatp')
@@ -40,4 +37,5 @@ def chat():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
