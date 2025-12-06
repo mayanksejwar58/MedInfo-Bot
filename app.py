@@ -1,6 +1,8 @@
 from flask import Flask, render_template,request, jsonify,redirect,url_for
 from google import genai
 from dotenv import load_dotenv
+from flask_cors import CORS
+CORS(app)
 load_dotenv()
 import os
 import json
