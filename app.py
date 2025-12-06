@@ -1,8 +1,11 @@
-from flask import Flask, render_template,request, jsonify
+from flask import Flask, render_template,request, jsonify,redirect,url_for
 from google import genai
 import json
 app = Flask(__name__)
 client=genai.Client(api_key='AIzaSyDmQB_ncrzoOMnSd9teArjafaWJnh0Kdyk')
+@app.route('/')
+def home():
+    return redirect(url_for('welcome'))
 
 @app.route('/welcome')
 def welcome():
