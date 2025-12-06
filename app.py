@@ -6,6 +6,10 @@ app = Flask(__name__)
 client=genai.Client(api_key='AIzaSyDmQB_ncrzoOMnSd9teArjafaWJnh0Kdyk')
 @app.route('/')
 def home():
+    return redirect(url_for('welcome'))
+
+@app.route('/welcome')
+def welcome():
     return render_template('welcome.html')
 
 @app.route('/chatp')
