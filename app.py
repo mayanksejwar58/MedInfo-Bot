@@ -1,13 +1,15 @@
 from flask import Flask, render_template,request, jsonify,redirect,url_for
 from google import genai
+from dotenv import load_dotenv
+load_dotenv()
 import os
 import json
 app = Flask(__name__)
-client=genai.Client(api_key='AIzaSyDmQB_ncrzoOMnSd9teArjafaWJnh0Kdyk')
+client=genai.Client(api_key=os.getenv("GENAI_API_KEY"))
+
 @app.route('/')
 def home():
-    return redirect(url_for('chat_page'))
-
+    return redirect(url_for('welcome'))
 @app.route('/welcome')
 def welcome():
     return render_template('welcome.html')
@@ -42,4 +44,4 @@ def chat():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(port=port)
