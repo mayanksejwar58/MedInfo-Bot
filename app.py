@@ -1,11 +1,11 @@
 from flask import Flask, render_template,request, jsonify,redirect,url_for
 from google import genai
 from dotenv import load_dotenv
-from flask_cors import CORS
-CORS(app)
-load_dotenv()
 import os
 import json
+
+load_dotenv()
+
 app = Flask(__name__)
 client=genai.Client(api_key=os.getenv("GENAI_API_KEY"))
 
@@ -36,12 +36,17 @@ def chat():
     your main task is to aware
     User Question:{question}
     """
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt)
+        reply=response.candidates[0].content.parts[0].text
+        return jsonify({"reply":reply})
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt)
-    reply=response.candidates[0].content.parts[0].text
-    return jsonify({"reply":reply})
+    except Exception as e:
+        return jsonify({"reply": "⚠️ Service temporarily unavailable. Try again later."}), 500
+
+
 
 
 if __name__ == "__main__":
